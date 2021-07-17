@@ -1,5 +1,5 @@
 # CarecasHero
-My project for IFG's My first Game initiative.
+This is my project for the first period of the computer science initiative at IFG.
 
 Carecas's Hero is a pixelated platform game where your objective is to defeat enemies endlessly.
 
