@@ -41,23 +41,41 @@ mode= 1
 do
 
 
-	if GetTextHitTest(1,GetPointerX(),GetPointerY())
+	if GetPointerPressed()=1
+
+		if GetTextHitTest(1,GetPointerX(),GetPointerY())
 		
-		if GetPointerPressed()=1
-			
 			SetTextVisible(1,0)
+			SetTextVisible(2,0)
+			SetTextVisible(3,0)
 			SetSpriteVisible(logosprite,0)
 			SetSpriteVisible(backspritem,0)
 			SetSpriteVisible(backsprite,1)
-			SetSpriteVisible(2,1)
+			
 			PlayMusic(1,1)
-			endif
+			AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
+			AddSpriteAnimationFrame(2,LoadImage("Careca-andando1.png"))
+			AddSpriteAnimationFrame(2,LoadImage("Careca-andando2.png"))
+			PlaySprite(2,10,1,1,3)
+			SetSpriteVisible(2,0)
+			
+		endif
+		
 	endif	
-		
 	
-		
-	
+	if GetPointerPressed()=1
 
+		if GetTextHitTest(2,GetPointerX(),GetPointerY())
+		
+			SetTextVisible(1,0)
+			SetTextVisible(2,0)
+			SetSpriteVisible(logosprite,0)
+			
+			
+			
+		endif
+	
+	endif
 		
 			
 SetSpritePosition(2,CarecaX,CarecaY)
@@ -90,7 +108,7 @@ SetSpritePosition(2,CarecaX,CarecaY)
 					
 				endif
 			endif	
-		//SetSpriteUVOffset(backsprite,xcroll#,0)
+		SetSpriteUVOffset(backsprite,xcroll#,0)
 		
 		
 
@@ -102,6 +120,7 @@ if GetRawkeyState(90) and CarecaRight=1
 		SetSpriteVisible(2,0)
 		
 		
+	
 	if shooting=0
 	shooting=1
 	for b=0 to 3
@@ -116,9 +135,13 @@ if GetRawkeyState(90) and CarecaRight=1
 			endif
 	next b
 	endif
+
 else
+	SetSpriteVisible(20,0)
+	SetSpriteVisible(2,1)
 	shooting=0
 endif
+
 
 for b = 0 to 3
 	if all_bullets[b].Active=1		
@@ -157,6 +180,7 @@ if GetRawKeyState(90) and CarecaLeft = 1
 		next b2
 		endif
 else
+	
 	shooting2=0
 endif
 

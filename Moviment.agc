@@ -13,11 +13,11 @@ Speed=3
 
 
 //Sprite Animation 2
-AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
+/*AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
 AddSpriteAnimationFrame(2,LoadImage("Careca-andando1.png"))
 AddSpriteAnimationFrame(2,LoadImage("Careca-andando2.png"))
 PlaySprite(2,10,1,1,3)
-SetSpriteVisible(2,0)
+SetSpriteVisible(2,0)*/
 
 
 
@@ -30,7 +30,7 @@ AddSpriteAnimationFrame(20,LoadImage("Careca-soco2.png"))
 //AddSpriteAnimationFrame(20,LoadImage("Soco3.png"))
 AddSpriteAnimationFrame(20,LoadImage("Careca-soco4.png"))
 SetSpriteVisible(20,0)
-PlaySprite(20,8,1,1,3)
+PlaySprite(20,7,1,1,3)
 
 
 //Bullet Sprites

@@ -49,7 +49,13 @@ SetTextColor(1,0,0,0,255)
 CreateText(2,"Options")
 SetTextSize(2,40)
 SetTextFont(2,1)
-SetTextPosition(2,350,580)
+SetTextPosition(2,410,580)
 SetTextColor(2,0,0,0,255)
+
+CreateText(3,"Exit")
+SetTextSize(3,40)
+SetTextFont(3,1)
+SetTextPosition(3,450,680)
+SetTextColor(3,0,0,0,255)
 
 return
