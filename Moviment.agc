@@ -1,36 +1,39 @@
 load_moviment:
 
-//Create Sprite2
+//Create Sprite Walking
 CreateSprite(2,0)
 
-//Sprite Position 2
+//Sprite Position Walking
 CarecaX=150
 CarecaY=675
 
 CarecaRight=0
 CarecaLeft=0
-Speed=3
+Speed=0.1
 
 
-//Sprite Animation 2
-/*AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
-AddSpriteAnimationFrame(2,LoadImage("Careca-andando1.png"))
-AddSpriteAnimationFrame(2,LoadImage("Careca-andando2.png"))
-PlaySprite(2,10,1,1,3)
-SetSpriteVisible(2,0)*/
-
-
-
-//Create Sprite 20
+//Create Sprite Punching
 CreateSprite(20,0)
 
-//Sprite Animation 20
+//Sprite Animation Punching
 AddSpriteAnimationFrame(20,LoadImage("Careca-soco1.png"))
 AddSpriteAnimationFrame(20,LoadImage("Careca-soco2.png"))
-//AddSpriteAnimationFrame(20,LoadImage("Soco3.png"))
 AddSpriteAnimationFrame(20,LoadImage("Careca-soco4.png"))
 SetSpriteVisible(20,0)
 PlaySprite(20,7,1,1,3)
+
+//Create Sprite Floor
+CreateSprite(21,0)
+AddSpriteAnimationFrame(21,LoadImage("Floor1032x758.png"))
+FloorX=0
+FloorY=728.3
+SetSpriteVisible(21,0)
+
+CreateSprite(23,0)
+AddSpriteAnimationFrame(23,LoadImage("Careca-pulo.png"))
+SetSpriteVisible(23,0)
+PlaySprite(23,1,1,1,1)
+
 
 
 //Bullet Sprites

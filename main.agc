@@ -18,28 +18,20 @@ SetScissor( 0,0,0,0 ) // use the maximum available screen space, no black border
 UseNewDefaultFonts( 1 ) // since version 2.0.22 we can use nicer default fonts
 SetDefaultWrapU(1)
 
-
 //Incluir os arquivos
 #include "Moviment.agc"
 #include "Loader.agc"
-
 
 //Inserir os shapes
 gosub load_moviment	
 gosub loade_images
 gosub Load_sound
-	
 gosub Load_menu
 gosub Load_titles
 
-
-
-//Música
-
-
 mode= 1
 do
-
+	SetSpriteVisible(2,1)
 
 	if GetPointerPressed()=1
 
@@ -53,12 +45,17 @@ do
 			SetSpriteVisible(backsprite,1)
 			
 			PlayMusic(1,1)
+			SetMusicSystemVolume(34)
+			
 			AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
 			AddSpriteAnimationFrame(2,LoadImage("Careca-andando1.png"))
 			AddSpriteAnimationFrame(2,LoadImage("Careca-andando2.png"))
-			PlaySprite(2,10,1,1,3)
-			SetSpriteVisible(2,0)
+			PlaySprite(2,7,1,1,3)
+			SetSpriteVisible(2,1)
+			SetSpriteVisible(21,1)
+
 			
+
 		endif
 		
 	endif	
@@ -70,9 +67,7 @@ do
 			SetTextVisible(1,0)
 			SetTextVisible(2,0)
 			SetSpriteVisible(logosprite,0)
-			
-			
-			
+				
 		endif
 	
 	endif
@@ -80,36 +75,33 @@ do
 			
 SetSpritePosition(2,CarecaX,CarecaY)
 		
-			
-			
-			if GetRawKeyState(39)
-				
-			
-				
+		
+		if GetRawKeyState(39)
+
 				SetSpriteFlip(2,0,0)
 				CarecaX=CarecaX+Speed
 				CarecaRight=1
 				CarecaLeft=0
-				xcroll#=xcroll#+0.001
+				xcroll#=xcroll#+0.0060
 				
 					
-			elseif	GetRawKeyState(37)
+					elseif	GetRawKeyState(37)
 					
-					SetSpriteFlip(2,180,0)
-					CarecaX=CarecaX-Speed
-					CarecaRight=0
-					CarecaLeft=1
-					xcroll#=xcroll#-.001
+							SetSpriteFlip(2,180,0)
+							CarecaX=CarecaX-Speed
+							CarecaRight=0
+							CarecaLeft=1
+							xcroll#=xcroll#-.0060
 					
-
 			else
 				if (GetSpritePlaying(2)=1)
 					PlaySprite(2,10,1,1,3)
 					
 				endif
-			endif	
+			endif
+				
 		SetSpriteUVOffset(backsprite,xcroll#,0)
-		
+		SetSpriteUVOffset(21,xcroll#,0)
 		
 
 if GetRawkeyState(90) and CarecaRight=1
@@ -119,24 +111,23 @@ if GetRawkeyState(90) and CarecaRight=1
 		SetSpriteFlip(20,0,0)
 		SetSpriteVisible(2,0)
 		
-		
-	
+
 	if shooting=0
 	shooting=1
-	for b=0 to 3
-		if all_bullets[b].Active=0
-			all_bullets[b].Active=1		
-			all_bullets[b].BulletX=CarecaX+30
-			all_bullets[b].Bullety=Carecay+10
+		for b=0 to 3
+			if all_bullets[b].Active=0
+				all_bullets[b].Active=1		
+				all_bullets[b].BulletX=CarecaX+30
+				all_bullets[b].Bullety=Carecay+10
 			
-			SetSpriteVisible(3+b,1)
+					SetSpriteVisible(3+b,1)
 			
 			exit
 			endif
-	next b
+		next b
 	endif
 
-else
+				else
 	SetSpriteVisible(20,0)
 	SetSpriteVisible(2,1)
 	shooting=0
@@ -197,7 +188,64 @@ for b2=0 to 3
 	SetSpritePosition(7+b2,all_bullets2[b2].BulletLeft_X,all_bullets2[b2].BulletLeft_Y)
 next b2
 
-				
+SetSpritePosition(21,FloorX,FloorY)
 
+	if GetSpriteCollision(2,21) = 1 or Jump = 1
+		
+		Fall=0
+		
+			else
+				Fall=1
+			
+endif	    
+			
+	if Fall=0
+		
+		CarecaY=CarecaY+0
+		
+			elseif Fall=1
+			
+				CarecaX=CarecaX+0
+endif
+	
+	if GetRawKeyPressed(32)
+		
+		
+		Jump=1
+		
+		
+		
+endif	
+
+	if Jump=1
+		SetSpritePosition(23,CarecaX,CarecaY)
+		SetSpriteVisible(23,1)
+		SetSpriteVisible(2,0)
+		
+		
+		Fall=0
+		JumpTimer=JumpTimer+3
+		Movement=5
+			
+			if JumpTimer<80
+				
+				CarecaY=CarecaY-Movement
+				
+					elseif JumpTimer>83
+						
+						CarecaY=CarecaY+Movement
+					endif					
+	
+		if GetSpriteCollision(2,21)=1 and JumpTimer >80
+		
+			Movement=0
+			Fall=0
+			JumpTimer=0
+			Jump=0
+			SetSpriteVisible(23,0)
+		
+		endif	
+endif		
+			
 	sync()			
 	loop	
