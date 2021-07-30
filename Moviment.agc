@@ -9,7 +9,7 @@ CarecaY=675
 
 CarecaRight=0
 CarecaLeft=0
-Speed=0.1
+Speed=6
 
 
 //Create Sprite Punching
@@ -29,11 +29,26 @@ FloorX=0
 FloorY=728.3
 SetSpriteVisible(21,0)
 
+//Create Sprite Jump
 CreateSprite(23,0)
 AddSpriteAnimationFrame(23,LoadImage("Careca-pulo.png"))
 SetSpriteVisible(23,0)
 PlaySprite(23,1,1,1,1)
 
+//Create Sprite Enemy
+CreateSprite(24,0)
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz1.png"))
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz2.png"))
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz3.png"))
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz4.png"))
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz5.png"))
+AddSpriteAnimationFrame(24,LoadImage("InimigoAz6.png"))
+SetSpriteVisible(24,0)
+EnemyX=1050
+EnemyY=680
+EnemyRigth=0
+EnemyLeft=0
+PlaySprite(24,7,1,1,6)
 
 
 //Bullet Sprites

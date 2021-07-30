@@ -40,10 +40,12 @@ do
 			SetTextVisible(1,0)
 			SetTextVisible(2,0)
 			SetTextVisible(3,0)
+			SetSpriteVisible(24,1)
 			SetSpriteVisible(logosprite,0)
 			SetSpriteVisible(backspritem,0)
 			SetSpriteVisible(backsprite,1)
-			
+			Print(Score)
+			Score=0
 			PlayMusic(1,1)
 			SetMusicSystemVolume(34)
 			
@@ -82,7 +84,7 @@ SetSpritePosition(2,CarecaX,CarecaY)
 				CarecaX=CarecaX+Speed
 				CarecaRight=1
 				CarecaLeft=0
-				xcroll#=xcroll#+0.0060
+				xcroll#=xcroll#+0.0040
 				
 					
 					elseif	GetRawKeyState(37)
@@ -91,7 +93,7 @@ SetSpritePosition(2,CarecaX,CarecaY)
 							CarecaX=CarecaX-Speed
 							CarecaRight=0
 							CarecaLeft=1
-							xcroll#=xcroll#-.0060
+							xcroll#=xcroll#-.0040
 					
 			else
 				if (GetSpritePlaying(2)=1)
@@ -100,8 +102,6 @@ SetSpritePosition(2,CarecaX,CarecaY)
 				endif
 			endif
 				
-		SetSpriteUVOffset(backsprite,xcroll#,0)
-		SetSpriteUVOffset(21,xcroll#,0)
 		
 
 if GetRawkeyState(90) and CarecaRight=1
@@ -141,6 +141,16 @@ for b = 0 to 3
 		
 	endif	
 next b
+
+for b = 0 to 3
+	if all_bullets[b].Active=1
+		if GetSpriteCollision(24,3+b)=1
+			all_bullets[b].Active=0
+			SetSpriteVisible(3+b,0)
+			EnemyX=1200
+		endif	
+	endif
+next b		
 
 for b=0	to 3
 	
@@ -183,13 +193,37 @@ for b2=0 to 3
 	endif
 next b2
 
+for b2 = 0 to 3
+	if all_bullets2[b2].ActiveLeft=1
+		if GetSpriteCollision(24,7+b2)=1
+			all_bullets2[b2].ActiveLeft=0
+			SetSpriteVisible(3+b,0)
+			EnemyX=-700
+		endif	
+	endif
+next b2
 
 for b2=0 to 3
 	SetSpritePosition(7+b2,all_bullets2[b2].BulletLeft_X,all_bullets2[b2].BulletLeft_Y)
 next b2
 
-SetSpritePosition(21,FloorX,FloorY)
 
+SetSpritePosition(24,EnemyX,EnemyY)
+
+	if EnemyX<CarecaX
+		
+		SetSpriteFlip(24,180,0)
+		EnemyX=EnemyX+2
+		
+endif
+	
+	if EnemyX>CarecaX
+		
+		SetSpriteFlip(24,0,0)
+		EnemyX = EnemyX-2
+endif		
+
+SetSpritePosition(21,FloorX,FloorY)
 	if GetSpriteCollision(2,21) = 1 or Jump = 1
 		
 		Fall=0
@@ -209,11 +243,8 @@ endif
 endif
 	
 	if GetRawKeyPressed(32)
-		
-		
+			
 		Jump=1
-		
-		
 		
 endif	
 
@@ -221,7 +252,7 @@ endif
 		SetSpritePosition(23,CarecaX,CarecaY)
 		SetSpriteVisible(23,1)
 		SetSpriteVisible(2,0)
-		
+		SetSpriteFlip(23,0,0)
 		
 		Fall=0
 		JumpTimer=JumpTimer+3
@@ -245,7 +276,14 @@ endif
 			SetSpriteVisible(23,0)
 		
 		endif	
-endif		
+endif	
+
+	if Jump=1 and CarecaLeft=1
+		SetSpritePosition(23,CarecaX,CarecaY)
+		SetSpriteVisible(23,1)
+		SetSpriteVisible(2,0)
+		SetSpriteFlip(23,180,0)
 			
+endif		
 	sync()			
 	loop	
