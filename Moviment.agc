@@ -9,7 +9,7 @@ CarecaY=675
 
 CarecaRight=0
 CarecaLeft=0
-Speed=6
+Speed=4
 
 
 //Create Sprite Punching
@@ -44,7 +44,7 @@ AddSpriteAnimationFrame(24,LoadImage("InimigoAz4.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz5.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz6.png"))
 SetSpriteVisible(24,0)
-EnemyX=1050
+EnemyX=1600
 EnemyY=680
 EnemyRigth=0
 EnemyLeft=0
