@@ -52,9 +52,9 @@ FILE_1=Loader.agc;-1
 FILE_2=Moviment.agc;-1
 
 [files]
-FILE_NAME_0=1;main.agc;11611;0
+FILE_NAME_0=1;main.agc;6030;0
 FILE_NAME_1=0;Loader.agc;334;1
-FILE_NAME_2=0;Moviment.agc;1175;2
+FILE_NAME_2=0;Moviment.agc;692;2
 
 [project]
 description=

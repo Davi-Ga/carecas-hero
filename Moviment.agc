@@ -29,6 +29,12 @@ FloorX=0
 FloorY=728.3
 SetSpriteVisible(21,0)
 
+CreateSprite(26,0)
+AddSpriteAnimationFrame(26,LoadImage("Arvorezinha.png"))
+TreeX=0
+TreeY=580
+SetSpriteVisible(26,1)
+
 //Create Sprite Jump
 CreateSprite(23,0)
 AddSpriteAnimationFrame(23,LoadImage("Careca-pulo.png"))
@@ -50,6 +56,11 @@ EnemyRigth=0
 EnemyLeft=0
 PlaySprite(24,7,1,1,6)
 
+//Create sprite de cair
+CreateSprite(25,0)
+AddSpriteAnimationFrame(25,LoadImage("Caindo.png"))
+SetSpriteVisible(25,0)
+PlaySprite(25,1,1,1,1)
 
 //Bullet Sprites
 LoadImage(5,"Soco.png")

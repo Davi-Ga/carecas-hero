@@ -31,6 +31,7 @@ gosub Load_titles
 
 PlayMusic(6)
 
+
 score=0
 do
 	
@@ -209,10 +210,11 @@ for b = 0 to 3
 		
 		if GetSpriteCollision(24,3+b)=1  //Define uma colisão entre a bullet e o inimigo
 			
-			score=score+1 //Ao acertar um inimigo, soma-se no score
-			SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
-			PlaySound(4) //Som do inimigo sendo atingido
-			
+			if score<20
+					score=score+1 //Ao acertar um inimigo na direita, soma-se no score
+					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
+					PlaySound(4) //Som do inimigo sendo atingido
+			endif	
 			all_bullets[b].Active=0 //Desativa a bala ao colidir com o inimigo
 			
 			SetSpriteVisible(3+b,0) //Torna a sprite da bullet invisível ao colidir com o inimigo
@@ -287,9 +289,11 @@ for b2 = 0 to 3
 		
 		if GetSpriteCollision(24,7+b2)=1 //Define uma colisão entre a bullet e o inimigo na esquerda
 			
-			score=score+1 //Ao acertar um inimigo na esquerda, soma-se no score
-			SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
-			PlaySound(4) //Som do inimigo sendo atingido
+				if score<20
+					score=score+1 //Ao acertar um inimigo na esquerda, soma-se no score
+					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
+					PlaySound(4) //Som do inimigo sendo atingido
+				endif	
 			
 			all_bullets2[b2].ActiveLeft=0 //Desativa a bala ao colidir com o inimigo
 			
@@ -323,6 +327,7 @@ endif
 endif		
 
 SetSpritePosition(21,FloorX,FloorY) //Define a posição do chão
+SetSpritePosition(26,TreeX,TreeY)
 
 	if GetSpriteCollision(2,21) = 1 or Jump = 1 //Define uma colisão entre o careca, ou caso a variável Jump for true
 		
@@ -360,8 +365,8 @@ endif
 		
 		SetSpritePosition(2,CarecaX,CarecaY)
 		Fall=0
-		JumpTimer=JumpTimer+3 //Define até onde o pulo irá
-		Movement=5 //Define a velocidade do pulo
+		JumpTimer=JumpTimer+2.7 //Define até onde o pulo irá
+		Movement=6 //Define a velocidade do pulo
 		
 			if JumpTimer<80 
 				
@@ -370,15 +375,22 @@ endif
 					elseif JumpTimer>83
 						
 						CarecaY=CarecaY+Movement
+						SetSpritePosition(25,CarecaX,CarecaY)
+						SetSpriteFlip(25,0,0)
+						SetSpriteVisible(25,1)
+						SetSpriteVisible(23,0)
+				
 					endif					
 	
 		if GetSpriteCollision(2,21)=1 and JumpTimer >80
 		
+			
 			Movement=0
 			Fall=0
 			JumpTimer=0
 			Jump=0
 			SetSpriteVisible(23,0)
+			SetSpriteVisible(25,0)
 			
 		endif	
 endif	
@@ -388,7 +400,20 @@ endif
 		SetSpriteVisible(23,1)
 		SetSpriteVisible(2,0)
 		SetSpriteFlip(23,180,0)
-			
+		
+			if JumpTimer<80 
+				
+				
+				
+					elseif JumpTimer>83 and CarecaLeft=1
+						
+					
+						SetSpritePosition(25,CarecaX,CarecaY)
+						SetSpriteFlip(25,180,0)
+						SetSpriteVisible(25,1)
+						SetSpriteVisible(23,0)
+				
+			endif	
 endif	
 	if GetSpriteCollision(2,24)=1
 		
@@ -420,7 +445,13 @@ endif
 		SetSpriteVisible(backsprite,0)	
 		
 		
-	endif
+endif
 		
+		if score=20
+			
+			
+			print("Taujiro é corno")
+			
+endif			
 	sync()			
 	loop	
