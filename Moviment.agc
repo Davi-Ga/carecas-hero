@@ -31,9 +31,14 @@ SetSpriteVisible(21,0)
 
 CreateSprite(26,0)
 AddSpriteAnimationFrame(26,LoadImage("Arvorezinha.png"))
-TreeX=0
+TreeX=-60
 TreeY=580
-SetSpriteVisible(26,1)
+SetSpriteVisible(26,0)
+
+CreateSprite(27,0)
+AddSpriteAnimationFrame(27,LoadImage("Arvorezinha.png"))
+SetSpriteVisible(27,0)
+
 
 //Create Sprite Jump
 CreateSprite(23,0)
@@ -50,8 +55,7 @@ AddSpriteAnimationFrame(24,LoadImage("InimigoAz4.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz5.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz6.png"))
 SetSpriteVisible(24,0)
-EnemyX=1600
-EnemyY=680
+
 EnemyRigth=0
 EnemyLeft=0
 PlaySprite(24,7,1,1,6)

@@ -16,11 +16,13 @@ SetOrientationAllowed( 1, 1, 1, 1 ) // allow both portrait and landscape on mobi
 SetSyncRate( 60, 0 ) // 30fps instead of 60 to save battery
 SetScissor( 0,0,0,0 ) // use the maximum available screen space, no black borders
 UseNewDefaultFonts( 1 ) // since version 2.0.22 we can use nicer default fonts
-
+SetDefaultWrapU(1)
 
 //Incluir os arquivos
 #include "Moviment.agc"
 #include "Loader.agc"
+
+
 
 //Inserir os shapes
 gosub load_moviment	
@@ -35,12 +37,16 @@ PlayMusic(6)
 score=0
 do
 	
-	
+	xcroll#=xcroll#+.0006
+	SetSpriteUVOffset(backspritem,xcroll#,0)
+	GetPaused()
 
 	if GetPointerPressed()=1
 
 		if GetTextHitTest(1,GetPointerX(),GetPointerY()) //Clicar no botão Play Game
-		
+			
+			GetResumed()
+			
 			DeleteMusic(6)
 			//Deixa os botões invisíveis
 			SetTextVisible(1,0) //Botão Start Game 
@@ -49,6 +55,10 @@ do
 			
 			//Deixa o botão "Score" visível
 			SetTextVisible(4,1)
+			
+			//Deixa as árvores visível
+			SetSpriteVisible(26,1)
+			SetSpriteVisible(27,1)
 			
 			//Deixa o inimigo visível
 			SetSpriteVisible(24,1)
@@ -63,6 +73,7 @@ do
 	
 			//Ativa a música e define o seu volume
 			PlayMusic(1,1)
+			SetMusicSystemVolume(35)
 			
 			//Adiciona e anima o personagem jogável
 			AddSpriteAnimationFrame(2,LoadImage("Careca-parado.png"))
@@ -73,12 +84,42 @@ do
 			//Deixa o Careca e o background visíveis
 			SetSpriteVisible(2,1)
 			SetSpriteVisible(21,1)
-	
+		
+			EnemyX=1000
+			EnemyY=680
 
+				
+	
 		endif
 		
 	endif	
-	
+if GetSpriteCollision(2,24)=1
+					
+					//Deixa os botões invisíveis
+					SetTextVisible(1,1) //Botão Start Game 
+					SetTextVisible(2,1) //Botão Options 
+					SetTextVisible(3,1) //Botão Exit 
+					
+					//Deixa o botão "Score" visível
+					SetTextVisible(4,0)
+					
+					//Deixa as árvores invisível
+					SetSpriteVisible(26,0)
+					SetSpriteVisible(27,0)
+					
+					//Deixa o inimigo invisível
+					SetSpriteVisible(24,0)
+					
+					//Deixa a logo e o background do menu visível
+					SetSpriteVisible(logosprite,1)
+					SetSpriteVisible(backspritem,1)
+					SetSpriteVisible(backsprite,0)
+					
+					EnemyX=0
+					EnemyY=0
+				
+endif	
+
 	if GetPointerPressed()=1
 
 		if GetTextHitTest(2,GetPointerX(),GetPointerY()) //Clicar no botão Options
@@ -149,7 +190,7 @@ do
 				
 		
 
-if GetRawkeyState(90) and CarecaRight=1//Pressionar a tecla 'Z' e CarecaRight for true
+if GetRawkeyState(90) and CarecaRight=1 //Pressionar a tecla 'Z' e CarecaRight for true
 	
 		//Animação de socar
 		SetSpritePosition(20,CarecaX,CarecaY)  //Define a posição do sprite de soco
@@ -193,7 +234,7 @@ endif //Termina todo o se
 for b = 0 to 3
 	
 	//Se as bullets forem 1 entre nesse se	
-	if all_bullets[b].Active=1	
+	if all_bullets[b].Active=1
 			
 		all_bullets[b].BulletX=all_bullets[b].BulletX+5	 //Define a velocidade da bullet em linha reta
 		
@@ -210,7 +251,7 @@ for b = 0 to 3
 		
 		if GetSpriteCollision(24,3+b)=1  //Define uma colisão entre a bullet e o inimigo
 			
-			if score<20
+			if score<30
 					score=score+1 //Ao acertar um inimigo na direita, soma-se no score
 					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
 					PlaySound(4) //Som do inimigo sendo atingido
@@ -289,7 +330,7 @@ for b2 = 0 to 3
 		
 		if GetSpriteCollision(24,7+b2)=1 //Define uma colisão entre a bullet e o inimigo na esquerda
 			
-				if score<20
+				if score<30
 					score=score+1 //Ao acertar um inimigo na esquerda, soma-se no score
 					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
 					PlaySound(4) //Som do inimigo sendo atingido
@@ -327,7 +368,8 @@ endif
 endif		
 
 SetSpritePosition(21,FloorX,FloorY) //Define a posição do chão
-SetSpritePosition(26,TreeX,TreeY)
+SetSpritePosition(26,TreeX,TreeY) //Define a posição da árvore direita
+SetSpritePosition(27,950,TreeY) //Define a posição da árvore esquerda
 
 	if GetSpriteCollision(2,21) = 1 or Jump = 1 //Define uma colisão entre o careca, ou caso a variável Jump for true
 		
@@ -384,7 +426,6 @@ endif
 	
 		if GetSpriteCollision(2,21)=1 and JumpTimer >80
 		
-			
 			Movement=0
 			Fall=0
 			JumpTimer=0
@@ -415,43 +456,16 @@ endif
 				
 			endif	
 endif	
-	if GetSpriteCollision(2,24)=1
-		
-		StopSound(2)
-		StopSound(3)
-		StopSound(4)
-		StopSound(5)
-		StopMusic()
-		
-		SetTextVisible(7,1)
-				
-		SetTextVisible(4,0)
-		
-		SetSpriteVisible(2,0)
-		SetSpriteActive(2,0)
-		
-		SetSpriteVisible(3,0)
-		SetSpriteVisible(3+b,0)
-
-		
-		SetSpriteVisible(21,0)
-		
-		SetSpriteVisible(23,0)
-		SetSpriteVisible(24,0)
-		
-		
-		
-		SetSpriteVisible(backspritem,1)
-		SetSpriteVisible(backsprite,0)	
-		
-		
-endif
-		
-		if score=20
+	
+			
+			
+		if score=30
 			
 			
 			print("Taujiro é corno")
 			
-endif			
+endif	
+
+ 		
 	sync()			
 	loop	

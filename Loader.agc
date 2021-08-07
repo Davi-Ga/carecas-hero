@@ -11,10 +11,12 @@ return
 Load_sound:
 LoadMusic(1,"Undertale OST_ 068 - Death by Glamour_160k.mp3")
 LoadMusic(6,"musicback.mp3")
+
+
 LoadSound(2,"Shoot_01.wav")
 LoadSound(3,"Jump_03.wav")
 LoadSound(4,"Hit_02.wav")
-LoadSound(5,"Hero_Death_00.wav")
+
 
 return
 
@@ -47,6 +49,7 @@ SetTextSize(1,40)
 SetTextFont(1,1)
 SetTextPosition(1,360,480)
 SetTextColor(1,0,0,0,255)
+
 
 CreateText(2,"Options")
 SetTextSize(2,40)
@@ -81,11 +84,6 @@ SetTextPosition(6,20,220)
 SetTextColor(6,0,0,0,255)
 SetTextVisible(6,0)
 
-CreateText(7,"SE FUDEU!")
-SetTextSize(7,50)
-SetTextFont(7,1)
-SetTextPosition(7,360,480)
-SetTextColor(7,0,0,0,255)
-SetTextVisible(7,0)
+
 
 return
