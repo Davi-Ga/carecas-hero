@@ -18,6 +18,11 @@ SetScissor( 0,0,0,0 ) // use the maximum available screen space, no black border
 UseNewDefaultFonts( 1 ) // since version 2.0.22 we can use nicer default fonts
 SetDefaultWrapU(1)
 
+backdropf=LoadImage("Background final 1023x758.png")
+backspritef=CreateSprite(backdropf)
+SetSpritePosition(backspritef,0,0)
+SetSpriteVisible(backspritef,0)
+
 //Incluir os arquivos
 #include "Moviment.agc"
 #include "Loader.agc"
@@ -31,30 +36,34 @@ gosub Load_sound
 gosub Load_menu
 gosub Load_titles
 
-PlayMusic(6)
+
 
 
 score=0
 do
-	
+
+
+
 	xcroll#=xcroll#+.0006
 	SetSpriteUVOffset(backspritem,xcroll#,0)
-	GetPaused()
+	
 
 	if GetPointerPressed()=1
 
 		if GetTextHitTest(1,GetPointerX(),GetPointerY()) //Clicar no botão Play Game
 			
-			GetResumed()
 			
-			DeleteMusic(6)
+			PlaySound(5)
+			PlayMusic(1)
+			
 			//Deixa os botões invisíveis
 			SetTextVisible(1,0) //Botão Start Game 
-			SetTextVisible(2,0) //Botão Options 
+			
 			SetTextVisible(3,0) //Botão Exit 
 			
 			//Deixa o botão "Score" visível
 			SetTextVisible(4,1)
+			
 			
 			//Deixa as árvores visível
 			SetSpriteVisible(26,1)
@@ -62,12 +71,15 @@ do
 			
 			//Deixa o inimigo visível
 			SetSpriteVisible(24,1)
+			SetSpriteVisible(31,1)
 			
 			//Deixa a logo e o background do menu invisíveis
 			SetSpriteVisible(logosprite,0)
 			SetSpriteVisible(backspritem,0)
 			SetSpriteVisible(backsprite,1)
 			SetSpritePosition(2,CarecaX,CarecaY)
+			
+			
 			//Define o score = 0 ao iniciar o game
 			SetTextString(4,"Score: "+str(score))
 	
@@ -85,19 +97,24 @@ do
 			SetSpriteVisible(2,1)
 			SetSpriteVisible(21,1)
 		
-			EnemyX=1000
+			EnemyX=1200
 			EnemyY=680
-
+			EnemyVX=-900
+			EnemyVY=690
+			BossX=1200
+			BossY=380
+	
 				
 	
 		endif
 		
 	endif	
-if GetSpriteCollision(2,24)=1
+if GetSpriteCollision(2,24)=1 
 					
+					StopMusic()
 					//Deixa os botões invisíveis
 					SetTextVisible(1,1) //Botão Start Game 
-					SetTextVisible(2,1) //Botão Options 
+					
 					SetTextVisible(3,1) //Botão Exit 
 					
 					//Deixa o botão "Score" visível
@@ -106,54 +123,85 @@ if GetSpriteCollision(2,24)=1
 					//Deixa as árvores invisível
 					SetSpriteVisible(26,0)
 					SetSpriteVisible(27,0)
+					SetSpriteVisible(28,0)
+					SetSpriteVisible(29,0)
 					
 					//Deixa o inimigo invisível
 					SetSpriteVisible(24,0)
+					SetSpriteVisible(31,0)
+					
+					//Deixa o chão invisível
+					SetSpriteVisible(21,0)
+					SetSpriteVisible(30,0)
+					
+					SetSpriteVisible(2,0)
 					
 					//Deixa a logo e o background do menu visível
 					SetSpriteVisible(logosprite,1)
 					SetSpriteVisible(backspritem,1)
 					SetSpriteVisible(backsprite,0)
+					SetSpriteVisible(backdropf,0)
+					
+
+					EnemyX=0
+					EnemyY=0
+					EnemyVX=0
+					EnemyVY=0
+					score=0
+
+endif
+					
+if GetSpriteCollision(2,31)=1
+					
+					StopMusic()
+					
+					//Deixa os botões invisíveis
+					SetTextVisible(1,1) //Botão Start Game 
+					
+					SetTextVisible(3,1) //Botão Exit 
+					
+					//Deixa o botão "Score" visível
+					SetTextVisible(4,0)
+					
+					//Deixa as árvores invisível
+					SetSpriteVisible(26,0)
+					SetSpriteVisible(27,0)
+					SetSpriteVisible(28,0)
+					SetSpriteVisible(29,0)
+					
+					
+					
+					//Deixa o inimigo invisível
+					SetSpriteVisible(24,0)
+					SetSpriteVisible(31,0)
+					
+					//Deixa o chão invisível
+					SetSpriteVisible(21,0)
+					SetSpriteVisible(30,0)
+					
+					SetSpriteVisible(2,0)
+					
+					//Deixa a logo e o background do menu visível
+					SetSpriteVisible(logosprite,1)
+					SetSpriteVisible(backspritem,1)
+					SetSpriteVisible(backsprite,0)
+					SetSpriteVisible(backdropf,0)
 					
 					EnemyX=0
 					EnemyY=0
+					EnemyVX=0
+					EnemyVY=0
+					score=0					
 				
 endif	
 
-	if GetPointerPressed()=1
-
-		if GetTextHitTest(2,GetPointerX(),GetPointerY()) //Clicar no botão Options
-		
-			SetTextVisible(1,0) //Botão Start Game invisível
-			SetTextVisible(2,0) //Botão Options invisível
-			SetTextVisible(3,0) //Botão Exit invisível
-			SetTextVisible(5,1) //Botão Back visível 
-			SetTextVisible(6,1)
-			SetSpriteVisible(logosprite,0)
-				
-		endif
 	
-	endif
-	
-		if GetPointerPressed()=1
-
-			if GetTextHitTest(5,GetPointerX(),GetPointerY()) //Clicar no botão Back
-		
-			SetTextVisible(1,1) //Botão Start Game visível
-			SetTextVisible(2,1) //Botão Options visível
-			SetTextVisible(3,1) //Botão Exit visível
-			SetTextVisible(5,0) //Botão Back invisível 
-			SetTextVisible(6,0)
-			SetSpriteVisible(logosprite,1)
-				
-		endif
-	
-	endif	
 	
 		if GetPointerPressed()=1
 
 			if GetTextHitTest(3,GetPointerX(),GetPointerY()) //Clicar no botão Exit
 		
+			PlaySound(5)
 			end //Finaliza o jogo
 				
 		endif
@@ -183,6 +231,7 @@ endif
 			
 			else
 				if (GetSpritePlaying(2)=1) 	//Ao se mover, a animação de andar será iniciada
+					
 					PlaySprite(2,10,1,1,3)
 					
 				endif
@@ -251,20 +300,21 @@ for b = 0 to 3
 		
 		if GetSpriteCollision(24,3+b)=1  //Define uma colisão entre a bullet e o inimigo
 			
-			if score<30
+			
 					score=score+1 //Ao acertar um inimigo na direita, soma-se no score
 					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
 					PlaySound(4) //Som do inimigo sendo atingido
-			endif	
+				
 			all_bullets[b].Active=0 //Desativa a bala ao colidir com o inimigo
 			
 			SetSpriteVisible(3+b,0) //Torna a sprite da bullet invisível ao colidir com o inimigo
-			EnemyX=1100 //Reseta a posição do inimigo, fazendo ele "renascer"
+			EnemyX=1200 //Reseta a posição do inimigo, fazendo ele "renascer"
 			
 		endif	
 		
 	endif
-next b		
+next b
+		
 
 //Faça 4 vezes o bullet
 for b=0	to 3
@@ -330,21 +380,25 @@ for b2 = 0 to 3
 		
 		if GetSpriteCollision(24,7+b2)=1 //Define uma colisão entre a bullet e o inimigo na esquerda
 			
-				if score<30
+				
 					score=score+1 //Ao acertar um inimigo na esquerda, soma-se no score
 					SetTextString(4,"Score: "+str(score)) //Mostra o score e a quantidade exata de inimigos mortos
 					PlaySound(4) //Som do inimigo sendo atingido
-				endif	
+					
 			
 			all_bullets2[b2].ActiveLeft=0 //Desativa a bala ao colidir com o inimigo
 			
 			SetSpriteVisible(3+b,0) //Torna a sprite da bullet invisível ao colidir com o inimigo
-			EnemyX=1100 //Reseta a posição do inimigo na esquerda, fazendo ele "renascer"
+			EnemyX=1200 //Reseta a posição do inimigo na esquerda, fazendo ele "renascer"
 			
 		endif	
 		
 	endif
 next b2
+
+
+
+
 
 //Faça 4 vezes o bullet
 for b2=0 to 3
@@ -354,22 +408,49 @@ next b2
 
 SetSpritePosition(24,EnemyX,EnemyY) //Define a posição do inimigo
 
+
+
 	if EnemyX<CarecaX //Se a posição do inimigo for menor que o Careca, entra nesse se
 		
 		SetSpriteFlip(24,180,0) //Define um flip de 180 mantendo o inimigo para a esquerda
-		EnemyX=EnemyX+2.5 //Define a posição do inimigo, fazendo-o "seguir" o Careca
+		EnemyX=EnemyX+SpeedEnemyAz //Define a posição do inimigo, fazendo-o "seguir" o Careca
 		
 endif
 	
 	if EnemyX>CarecaX //Se a posição do inimigo for maior que o Careca, entra nesse se
 		
 		SetSpriteFlip(24,0,0)  //Define um flip mantendo o inimigo para a direita
-		EnemyX = EnemyX-2.5 //Define a posição do inimigo, fazendo-o "seguir" o Careca
+		EnemyX = EnemyX-SpeedEnemyAz //Define a posição do inimigo, fazendo-o "seguir" o Careca
 endif		
 
+SetSpritePosition(31,EnemyVX,EnemyVY)
+
+
+	if EnemyVX<CarecaX //Se a posição do inimigo for menor que o Careca, entra nesse se
+		
+		SetSpriteFlip(31,180,0) //Define um flip de 180 mantendo o inimigo para a esquerda
+		EnemyVX=EnemyVX+SpeedEnemyVer //Define a posição do inimigo, fazendo-o "seguir" o Careca
+		
+endif
+	
+	if EnemyVX>CarecaX //Se a posição do inimigo for maior que o Careca, entra nesse se
+		
+		SetSpriteFlip(31,0,0)  //Define um flip mantendo o inimigo para a direita
+		EnemyVX = EnemyVX-SpeedEnemyVer //Define a posição do inimigo, fazendo-o "seguir" o Careca
+endif
+
+
+
+//Chão
 SetSpritePosition(21,FloorX,FloorY) //Define a posição do chão
+SetSpritePosition(30,FloorX,FloorY) //Define a posição do chãoF
+
 SetSpritePosition(26,TreeX,TreeY) //Define a posição da árvore direita
 SetSpritePosition(27,950,TreeY) //Define a posição da árvore esquerda
+
+SetSpritePosition(28,TreeX,TreeY) //Define a posição da árvore direita
+SetSpritePosition(29,950,TreeY) //Define a posição da árvore esquerda
+
 
 	if GetSpriteCollision(2,21) = 1 or Jump = 1 //Define uma colisão entre o careca, ou caso a variável Jump for true
 		
@@ -456,16 +537,40 @@ endif
 				
 			endif	
 endif	
+
+
+	if GetSpriteCollision(26,2) 
+
+		CarecaX=70
+		CarecaY=675
 	
-			
+endif	
+
+	if GetSpriteCollision(27,2) 
+
+		CarecaX=70
+		CarecaY=675
+	
+endif			
 			
 		if score=30
 			
+			SetSpriteVisible(backsprite,0) //Desativa o background normal
+			SetSpriteVisible(backspritef,1) //Ativa o background final
 			
-			print("Taujiro é corno")
+			SetSpriteVisible(30,1) //Ativa o Floor final 
 			
+			SetSpriteVisible(26,0)
+			SetSpriteVisible(27,0)
+			
+			SetSpriteVisible(28,1)
+			SetSpriteVisible(29,1)
+			
+			SpeedEnemyAz=2.6
+			SpeedEnemyVer=2.6
+			
+		
 endif	
-
- 		
+	
 	sync()			
 	loop	

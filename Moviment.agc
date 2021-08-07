@@ -29,16 +29,33 @@ FloorX=0
 FloorY=728.3
 SetSpriteVisible(21,0)
 
+//Create Sprite FloorF
+CreateSprite(30,0)
+AddSpriteAnimationFrame(30,LoadImage("FloorF1032x758.png"))
+SetSpriteVisible(30,0)
+
+//Create Sprite Arvore
 CreateSprite(26,0)
 AddSpriteAnimationFrame(26,LoadImage("Arvorezinha.png"))
 TreeX=-60
 TreeY=580
 SetSpriteVisible(26,0)
 
+//Create Sprite Arvore
 CreateSprite(27,0)
 AddSpriteAnimationFrame(27,LoadImage("Arvorezinha.png"))
 SetSpriteVisible(27,0)
 
+//Create Sprite ArvoreF
+CreateSprite(28,0)
+AddSpriteAnimationFrame(28,LoadImage("ArvorezinhaF.png"))
+SetSpriteVisible(28,0)
+
+
+//Create Sprite ArvoreF
+CreateSprite(29,0)
+AddSpriteAnimationFrame(29,LoadImage("ArvorezinhaF.png"))
+SetSpriteVisible(29,0)
 
 //Create Sprite Jump
 CreateSprite(23,0)
@@ -46,7 +63,21 @@ AddSpriteAnimationFrame(23,LoadImage("Careca-pulo.png"))
 SetSpriteVisible(23,0)
 PlaySprite(23,1,1,1,1)
 
-//Create Sprite Enemy
+//Create Sprite Enemy Azul
+CreateSprite(31,0)
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer1.png"))
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer2.png"))
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer3.png"))
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer4.png"))
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer5.png"))
+AddSpriteAnimationFrame(31,LoadImage("InimigoVer6.png"))
+SetSpriteVisible(31,0)
+EnemyRigth=0
+EnemyLeft=0
+PlaySprite(31,7,1,1,6)
+SpeedEnemyVer=1
+
+//Create Sprite Enemy Vermelho
 CreateSprite(24,0)
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz1.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz2.png"))
@@ -55,10 +86,11 @@ AddSpriteAnimationFrame(24,LoadImage("InimigoAz4.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz5.png"))
 AddSpriteAnimationFrame(24,LoadImage("InimigoAz6.png"))
 SetSpriteVisible(24,0)
-
 EnemyRigth=0
 EnemyLeft=0
 PlaySprite(24,7,1,1,6)
+SpeedEnemyAz=2
+
 
 //Create sprite de cair
 CreateSprite(25,0)
