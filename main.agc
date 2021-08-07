@@ -54,7 +54,7 @@ do
 			
 			
 			PlaySound(5)
-			PlayMusic(1)
+			PlayMusic(1,1)
 			
 			//Deixa os botões invisíveis
 			SetTextVisible(1,0) //Botão Start Game 
@@ -566,8 +566,8 @@ endif
 			SetSpriteVisible(28,1)
 			SetSpriteVisible(29,1)
 			
-			SpeedEnemyAz=2.6
-			SpeedEnemyVer=2.6
+			SpeedEnemyAz=2.3
+			SpeedEnemyVer=1.6
 			
 		
 endif	
